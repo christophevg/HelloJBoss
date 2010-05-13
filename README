@@ -1,0 +1,16 @@
+This project tries to evolve from a simple JBoss HelloWorld Servlet into an
+implementation using as many commonly used Java technologies as possible.
+
+I  started documenting my explorations into these technologies using this 
+source  tree, when I needed to take up a new project and had to refresh my 
+knowledge. This time I wanted to go over all aspects in detail, before relying 
+on predefined build systems that take care of most of all this for me.
+
+The goal is to use: JBoss, a Servlet, an EJB Bean, all nicely packaged in 
+JAR's, WAR's & EAR's, with database access to a MySQL server, JSF, Seam 2, 
+Maven, ...
+
+All steps are documented on http://christophe.vg/HelloJBoss.
+A Git repository containing all intermediate steps as separate commits is 
+available from git://github.com/christophevg/HelloJBoss.git 
+with a web-front-end at http://github.com/christophevg/HelloJBoss
