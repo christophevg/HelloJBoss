@@ -14,3 +14,9 @@ All steps are documented on http://christophe.vg/HelloJBoss.
 A Git repository containing all intermediate steps as separate commits is 
 available from git://github.com/christophevg/HelloJBoss.git 
 with a web-front-end at http://github.com/christophevg/HelloJBoss
+
+Getting Started
+0. read the documentation: http://christophe.vg/HelloJBoss.
+1. checkout a revision from GitHub
+2. run $ make deploy
+3. visit http://localhost:8080/HelloJBoss/sayHello
