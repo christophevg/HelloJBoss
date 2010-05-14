@@ -16,10 +16,29 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import javax.ejb.EJB;
+
 @SuppressWarnings("serial")
 public class HelloServlet extends HttpServlet {
+
+  @EJB
+  private Greeter greeter;
+
+  // This initialization is required for JBoss-4.2.3, where the annotations
+  // aren't picked up correctly yet (due to a Tomcat issue)
+  // As of Jboss-5.x this entire init method can be removed.
+  public void init() throws ServletException {
+    super.init();
+    try {
+      this.greeter = (Greeter)(new InitialContext())
+        .lookup("HelloJBoss/GreeterBean/local");
+    } catch( NamingException e ) {
+      throw new RuntimeException(e);
+    }
+  }
+
   @Override
-  public void service( HttpServletRequest request, HttpServletResponse response ) 
+  public void service(HttpServletRequest request,HttpServletResponse response)
          throws ServletException, IOException 
   {
     PrintWriter out = response.getWriter();
@@ -30,7 +49,9 @@ public class HelloServlet extends HttpServlet {
       out.println( "Error: <pre>" + e + "</pre>" );
       name = "Somebody";
     } finally {
-      out.println( "Hello " + name +  ", this is JBoss World!" );
+      out.println( "<html><body>" +
+                   this.greeter.greet(name) +
+                   "</body></html>" );
       out.close();
     }
   }
