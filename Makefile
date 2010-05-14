@@ -18,6 +18,11 @@ WAR_PKG=${WAR_DIR}/target/${WAR}
 
 LIB_SERVLET=${JBOSS_INSTANCE}/lib/servlet-api.jar
 
+TWIDDLE=${JBOSS}/bin/twiddle.sh
+TWIDDLE_DEPLOYER=${TWIDDLE} invoke "jboss.system:service=MainDeployer"
+TWIDDLE_DEPLOY=${TWIDDLE_DEPLOYER} deploy
+TWIDDLE_UNDEPLOY=${TWIDDLE_DEPLOYER} undeploy
+
 all: compile-war
 
 compile-war: ${WAR_SRCS}
@@ -28,13 +33,13 @@ compile-war: ${WAR_SRCS}
 	   -d ${WAR_TARGET}/WEB-INF/classes ${WAR_SRCS}
 
 deploy: compile-war
-	@echo "*** deploying ${WAR}"
-	@cp -r ${WAR_TARGET} ${WAR_TARGET}.deploy
-	@mv ${WAR_TARGET}.deploy ${JBOSS_DEPLOY}/${WAR}
-  
+	@echo "*** deploying ${WAR_PKG}"
+	@mv ${WAR_TARGET} ${WAR_PKG}
+	@${TWIDDLE_DEPLOY} file:${DIR}/${WAR_PKG}/
+
 undeploy:
-	@echo "*** undeploying ${WAR}"
-	@rm -rf ${JBOSS_DEPLOY}/${WAR}
+	@echo "*** undeploying ${WAR_PKG}"
+	@${TWIDDLE_UNDEPLOY} file:${DIR}/${WAR_PKG}/
 
 clean:
 	@rm -rf */target
