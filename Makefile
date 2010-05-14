@@ -4,6 +4,8 @@ DIR=$(shell pwd)
 CLASSPATH=vg/christophe/${PROJECT}
 
 CC=javac
+JAR=jar
+JAR_MAKE=${JAR} -cf
 
 JBOSS=../jboss-4.2.3.GA
 JBOSS_CONFIG=default
@@ -32,14 +34,17 @@ compile-war: ${WAR_SRCS}
 	@${CC} -classpath ${LIB_SERVLET} \
 	   -d ${WAR_TARGET}/WEB-INF/classes ${WAR_SRCS}
 
-deploy: compile-war
-	@echo "*** deploying ${WAR_PKG}"
-	@mv ${WAR_TARGET} ${WAR_PKG}
-	@${TWIDDLE_DEPLOY} file:${DIR}/${WAR_PKG}/
+HelloJBoss-war/target/HelloJBoss.war: compile-war
+	@echo "*** packaging $@"
+	@(cd ${WAR_TARGET}; ${JAR_MAKE} ../${WAR} *)
+
+deploy: ${WAR_PKG}
+	@echo "*** deploying $<"
+	@${TWIDDLE_DEPLOY} file:${DIR}/${WAR_PKG}
 
 undeploy:
 	@echo "*** undeploying ${WAR_PKG}"
-	@${TWIDDLE_UNDEPLOY} file:${DIR}/${WAR_PKG}/
+	@${TWIDDLE_UNDEPLOY} file:${DIR}/${WAR_PKG}
 
 clean:
 	@rm -rf */target
