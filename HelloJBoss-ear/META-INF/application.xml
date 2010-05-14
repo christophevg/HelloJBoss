@@ -1,0 +1,8 @@
+<application>
+  <display-name>Hello JBoss World</display-name>
+  <module>
+    <web>
+      <web-uri>HelloJBoss.war</web-uri>
+    </web>
+  </module>
+</application>

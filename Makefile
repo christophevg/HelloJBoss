@@ -18,7 +18,11 @@ WAR_SRCS=${WAR_DIR}/src/${CLASSPATH}/*
 WAR_TARGET=${WAR_DIR}/target/${WAR_DIR}
 WAR_PKG=${WAR_DIR}/target/${WAR}
 
-DS=db-ds.xml
+EAR=${PROJECT}.ear
+EAR_DIR=${PROJECT}-ear
+EAR_SRCS=${EJB_PKG} ${WAR_PKG} ${EAR_DIR}/src/db-ds.xml
+EAR_TARGET=${EAR_DIR}/target/${EAR_DIR}
+EAR_PKG=${EAR_DIR}/target/${EAR}
 
 LIB_SERVLET=${JBOSS_INSTANCE}/lib/servlet-api.jar
 
@@ -40,17 +44,20 @@ HelloJBoss-war/target/HelloJBoss.war: compile-war
 	@echo "*** packaging $@"
 	@(cd ${WAR_TARGET}; ${JAR_MAKE} ../${WAR} *)
 
-deploy: ${DS} ${WAR_PKG}
-	@echo "*** deploying datasource db"
-	@${TWIDDLE_DEPLOY} file:${DIR}/${DS}
-	@echo "*** deploying ${WAR_PKG}"
-	@${TWIDDLE_DEPLOY} file:${DIR}/${WAR_PKG}
+HelloJBoss-ear/target/HelloJBoss.ear: ${EAR_SRCS}
+	@echo "*** packaging $@"
+	@mkdir -p ${EAR_TARGET}
+	@cp -r ${EAR_SRCS} ${EAR_TARGET}
+	@cp -r ${EAR_DIR}/META-INF ${EAR_TARGET}
+	@(cd ${EAR_TARGET}; ${JAR_MAKE} ../${EAR} *)
+
+deploy: ${EAR_PKG}
+	@echo "*** deploying $<"
+	@${TWIDDLE_DEPLOY} file:${DIR}/$<
 
 undeploy:
-	@echo "*** undeploying ${WAR_PKG}"
-	@${TWIDDLE_UNDEPLOY} file:${DIR}/${WAR_PKG}
-	@echo "*** undeploying datasource db"
-	@${TWIDDLE_UNDEPLOY} file:${DIR}/${DS}
+	@echo "*** undeploying ${EAR_PKG}"
+	@${TWIDDLE_UNDEPLOY} file:${DIR}/${EAR_PKG}
 
 clean:
 	@rm -rf */target
