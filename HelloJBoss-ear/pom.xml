@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>HelloJBoss</artifactId>
+    <groupId>vg.christophe.HelloJBoss</groupId>
+    <version>0.7</version>
+  </parent>
+
+  <groupId>vg.christophe.HelloJBoss</groupId>
+  <artifactId>HelloJBoss-ear</artifactId>
+  <version>0.7</version>
+  <packaging>ear</packaging>
+  <name>Hello JBoss EAR</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>${project-name}-war</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>${project-name}-ejb</artifactId>
+      <version>${project.version}</version>
+      <type>ejb</type>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>HelloJBoss</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-ear-plugin</artifactId>
+        <version>2.3.2</version> <!-- important for data-sources -->
+        <configuration>
+          <jboss>
+            <version>4.2</version>
+            <data-sources>
+              <data-source>db-ds.xml</data-source>
+            </data-sources>
+          </jboss>
+          <modules>
+            <webModule>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project-name}-war</artifactId>
+              <contextRoot>${project-name}</contextRoot>
+            </webModule>
+          </modules>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
