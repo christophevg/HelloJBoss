@@ -18,6 +18,8 @@ WAR_SRCS=${WAR_DIR}/src/${CLASSPATH}/*
 WAR_TARGET=${WAR_DIR}/target/${WAR_DIR}
 WAR_PKG=${WAR_DIR}/target/${WAR}
 
+DS=db-ds.xml
+
 LIB_SERVLET=${JBOSS_INSTANCE}/lib/servlet-api.jar
 
 TWIDDLE=${JBOSS}/bin/twiddle.sh
@@ -38,13 +40,18 @@ HelloJBoss-war/target/HelloJBoss.war: compile-war
 	@echo "*** packaging $@"
 	@(cd ${WAR_TARGET}; ${JAR_MAKE} ../${WAR} *)
 
-deploy: ${WAR_PKG}
-	@echo "*** deploying $<"
+deploy: ${DS} ${WAR_PKG}
+	@echo "*** deploying datasource db"
+	@${TWIDDLE_DEPLOY} file:${DIR}/${DS}
+	@echo "*** deploying ${WAR_PKG}"
 	@${TWIDDLE_DEPLOY} file:${DIR}/${WAR_PKG}
 
 undeploy:
 	@echo "*** undeploying ${WAR_PKG}"
 	@${TWIDDLE_UNDEPLOY} file:${DIR}/${WAR_PKG}
+	@echo "*** undeploying datasource db"
+	@${TWIDDLE_UNDEPLOY} file:${DIR}/${DS}
 
 clean:
 	@rm -rf */target
+	@rm twiddle.log
