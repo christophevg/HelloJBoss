@@ -19,15 +19,21 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>${project-name}-war</artifactId>
+      <artifactId>${project-name}-model</artifactId>
       <version>${project.version}</version>
-      <type>war</type>
+      <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>${project-name}-ejb</artifactId>
       <version>${project.version}</version>
       <type>ejb</type>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>${project-name}-war</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
     </dependency>
   </dependencies>
 

@@ -6,9 +6,9 @@
 <faces-config>
 
   <managed-bean>
-    <managed-bean-name>GreeterBean</managed-bean-name>
-    <managed-bean-class>vg.christophe.HelloJBoss.GreeterBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
+    <managed-bean-name>Greeter</managed-bean-name>
+    <managed-bean-class>vg.christophe.HelloJBoss.Controler</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
   
   <navigation-rule>

@@ -19,7 +19,8 @@
   </developers>
 
   <modules>
-    <module>HelloJBoss-ejb</module>    
+    <module>HelloJBoss-model</module>
+    <module>HelloJBoss-ejb</module>
     <module>HelloJBoss-war</module>
     <module>HelloJBoss-ear</module>
   </modules>

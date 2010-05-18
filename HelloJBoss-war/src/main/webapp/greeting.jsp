@@ -7,7 +7,9 @@
 </head>    
 <body>
   <f:view>
-  <h3><h:outputText value="#{GreeterBean.greeting}"/></h3>
+  <h3><h:outputText value="#{Greeter.greet}"/></h3>
+  <br><br>
+  <a href="/HelloJBoss">&lt;&lt; back</a>
 </f:view>
 </body>	
 </html>

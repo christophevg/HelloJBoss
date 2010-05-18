@@ -1,0 +1,6 @@
+<persistence>
+  <persistence-unit name="db">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:/db</jta-data-source>
+  </persistence-unit>
+</persistence>
