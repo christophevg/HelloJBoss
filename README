@@ -10,13 +10,10 @@ The goal is to use: JBoss, a Servlet, an EJB Bean, all nicely packaged in
 JAR's, WAR's & EAR's, with database access to a MySQL server, JSF, Seam 2, 
 Maven, ...
 
-All steps are documented on http://christophe.vg/HelloJBoss.
 A Git repository containing all intermediate steps as separate commits is 
-available from git://github.com/christophevg/HelloJBoss.git 
-with a web-front-end at http://github.com/christophevg/HelloJBoss
+available from http://github.com/christophevg/HelloJBoss
 
 Getting Started
-0. read the documentation: http://christophe.vg/HelloJBoss.
 1. checkout a revision from GitHub
 2. run $ mvn package
 3. cp HelloJBoss-ear/target/HelloJBoss.ear ${JBOSS_HOME}/server/default/deploy
